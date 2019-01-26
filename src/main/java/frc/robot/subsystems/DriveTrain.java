@@ -12,9 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-/**
- * Add your docs here.
- */
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
@@ -26,11 +23,13 @@ public class DriveTrain extends Subsystem {
   private TalonSRX leftMotorFollower;
   private TalonSRX rightMotorFollower;
   private TalonSRX rightMotorMaster;
+  
   private static final double stopSpeed = 0.0;
 
   public DriveTrain() {
     leftMotorMaster = new TalonSRX(RobotMap.leftMotorMasterID);
     leftMotorFollower = new TalonSRX(RobotMap.leftMotorFollowerID);
+
     rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
     rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
 

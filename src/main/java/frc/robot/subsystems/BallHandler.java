@@ -12,9 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-/**
- * Add your docs here.
- */
 public class BallHandler extends Subsystem {
   private TalonSRX ballHandlerMotor;
   private boolean ballHandlerMotorInverted = false;
@@ -22,12 +19,11 @@ public class BallHandler extends Subsystem {
 
   public BallHandler() {
     ballHandlerMotor = new TalonSRX(RobotMap.ballHandlerMotorID);
-
     ballHandlerMotor.setInverted(ballHandlerMotorInverted);
   }
 
-  public void lift() {
-
+  public void lift(double percent) {
+    ballHandlerMotor.set(ControlMode.PercentOutput, percent);
   }
 
   public void stop() {

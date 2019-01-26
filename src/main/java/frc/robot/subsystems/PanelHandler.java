@@ -20,8 +20,8 @@ public class PanelHandler extends Subsystem {
   private static final double stopSpeed = 0.0;
 
   public PanelHandler() {
+  
     hookMotor = new TalonSRX(RobotMap.hookMotorID);
-
     hookMotor.setInverted(hookMotorInverted);
   }
 
@@ -31,6 +31,7 @@ public class PanelHandler extends Subsystem {
 
   // Motor turns in about 0.625 seconds in a 90 degree rotation
   // Motor turns in about 2.50 seconds in a full (360 degrees) rotation
+
   public void setHookPosition(Positions position) {
     switch (position) {
     case UP:
