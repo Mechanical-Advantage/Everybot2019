@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
- 
+
 /**
  * Add your docs here.
  */
@@ -21,32 +21,42 @@ public class DriveTrain extends Subsystem {
 
   private boolean reverseOutputLeft;
   private boolean reverseOutputRight;
-  
+
   private TalonSRX leftMotorMaster;
   private TalonSRX leftMotorFollower;
   private TalonSRX rightMotorFollower;
   private TalonSRX rightMotorMaster;
+  private static final double stopSpeed = 0.0;
 
-  public DriveTrain(){
-  leftMotorMaster = new TalonSRX(RobotMap.leftMotorMasterID);
-  leftMotorFollower = new TalonSRX(RobotMap.leftMotorFollowerID);
-  rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
-  rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
+  public DriveTrain() {
+    leftMotorMaster = new TalonSRX(RobotMap.leftMotorMasterID);
+    leftMotorFollower = new TalonSRX(RobotMap.leftMotorFollowerID);
+    rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
+    rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
 
-  reverseOutputRight = true;
-  reverseOutputLeft = false;
+    reverseOutputRight = true;
+    reverseOutputLeft = false;
 
-  rightMotorMaster.setInverted(reverseOutputRight);
-  rightMotorFollower.setInverted(reverseOutputRight);
+    rightMotorMaster.setInverted(reverseOutputRight);
+    rightMotorFollower.setInverted(reverseOutputRight);
 
-  leftMotorMaster.setInverted(reverseOutputLeft);
-  leftMotorFollower.setInverted(reverseOutputLeft);
+    leftMotorMaster.setInverted(reverseOutputLeft);
+    leftMotorFollower.setInverted(reverseOutputLeft);
 
-  leftMotorFollower.set(ControlMode.Follower,RobotMap.leftMotorMasterID);
-  rightMotorFollower.set(ControlMode.Follower,RobotMap.rightMotorMasterID);
-  
+    leftMotorFollower.set(ControlMode.Follower, RobotMap.leftMotorMasterID);
+    rightMotorFollower.set(ControlMode.Follower, RobotMap.rightMotorMasterID);
+
   }
 
+  public void drive(double leftPercent, double rightPercent) {
+    leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
+    rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
+  }
+
+  public void stop() {
+    leftMotorMaster.set(ControlMode.PercentOutput, stopSpeed);
+    rightMotorMaster.set(ControlMode.PercentOutput, stopSpeed);
+  }
 
   @Override
   public void initDefaultCommand() {

@@ -9,42 +9,29 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.RobotMap;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class PanelHandler extends Subsystem {
-  private TalonSRX hookMotor;
-  private boolean hookMotorInverted = false;
-  private static final double upSpeed = 1.0;
-  private static final double downSpeed = -1.0;
+/**
+ * Add your docs here.
+ */
+public class BallHandler extends Subsystem {
+  private TalonSRX ballHandlerMotor;
+  private boolean ballHandlerMotorInverted = false;
   private static final double stopSpeed = 0.0;
 
-  public PanelHandler() {
-    hookMotor = new TalonSRX(RobotMap.hookMotorID);
+  public BallHandler() {
+    ballHandlerMotor = new TalonSRX(RobotMap.ballHandlerMotorID);
 
-    hookMotor.setInverted(hookMotorInverted);
+    ballHandlerMotor.setInverted(ballHandlerMotorInverted);
   }
 
-  public enum Positions {
-    UP, DOWN
-  }
+  public void lift() {
 
-  // Motor turns in about 0.625 seconds in a 90 degree rotation
-  // Motor turns in about 2.50 seconds in a full (360 degrees) rotation
-  public void setHookPosition(Positions position) {
-    switch (position) {
-    case UP:
-      hookMotor.set(ControlMode.PercentOutput, upSpeed);
-      break;
-
-    case DOWN:
-      hookMotor.set(ControlMode.PercentOutput, downSpeed);
-      break;
-    }
   }
 
   public void stop() {
-    hookMotor.set(ControlMode.PercentOutput, stopSpeed);
+    ballHandlerMotor.set(ControlMode.PercentOutput, stopSpeed);
   }
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
