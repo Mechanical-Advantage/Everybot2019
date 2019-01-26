@@ -28,10 +28,10 @@ public class DriveTrain extends Subsystem {
   private TalonSRX rightMotorMaster;
 
   public DriveTrain(){
-  leftMotorMaster = new TalonSRX(RobotMap.leftMotorMaster);
-  leftMotorFollower = new TalonSRX(RobotMap.leftMotorFollower);
-  rightMotorMaster = new TalonSRX(RobotMap.rightMotorMaster);
-  rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollower);
+  leftMotorMaster = new TalonSRX(RobotMap.leftMotorMasterID);
+  leftMotorFollower = new TalonSRX(RobotMap.leftMotorFollowerID);
+  rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
+  rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
 
   reverseOutputRight = true;
   reverseOutputLeft = false;
@@ -42,8 +42,8 @@ public class DriveTrain extends Subsystem {
   leftMotorMaster.setInverted(reverseOutputLeft);
   leftMotorFollower.setInverted(reverseOutputLeft);
 
-  leftMotorFollower.set(ControlMode.Follower,RobotMap.leftMotorMaster);
-  rightMotorFollower.set(ControlMode.Follower,RobotMap.rightMotorMaster);
+  leftMotorFollower.set(ControlMode.Follower,RobotMap.leftMotorMasterID);
+  rightMotorFollower.set(ControlMode.Follower,RobotMap.rightMotorMasterID);
   
   }
 
