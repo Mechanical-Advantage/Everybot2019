@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.JoystickDrive;
+import frc.robot.Robot;
 
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
@@ -25,7 +26,7 @@ public class DriveTrain extends Subsystem {
   private TalonSRX leftMotorFollower;
   private TalonSRX rightMotorFollower;
   private TalonSRX rightMotorMaster;
-  
+
   private static final double stopSpeed = 0.0;
 
   public DriveTrain() {
@@ -50,8 +51,12 @@ public class DriveTrain extends Subsystem {
   }
 
   public void drive(double leftPercent, double rightPercent) {
-    leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
-    rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
+    if (Robot.oi.getDriveDisabled()) {
+      stop();
+    } else {
+      leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
+      rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
+    }
   }
 
   public void stop() {
@@ -62,6 +67,6 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-     setDefaultCommand(new JoystickDrive());
+    setDefaultCommand(new JoystickDrive());
   }
 }

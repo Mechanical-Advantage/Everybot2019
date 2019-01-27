@@ -6,7 +6,10 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,22 +18,29 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
   private static final int leftJoystickPort = 0;
   private static final int rightJoystickPort = 1;
+  private static final int oIControlOnePort = 3;
+  private static final int driveDisableSwitchButtonNum = 9;
+  private Joystick oIControlOne = new Joystick(oIControlOnePort);
+  private Button driveDisableSwitch = new JoystickButton(oIControlOne, driveDisableSwitchButtonNum);
 
-  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
-  Joystick leftStick = new Joystick(leftJoystickPort);
-  Joystick rightStick = new Joystick(rightJoystickPort);
+  private Joystick leftStick = new Joystick(leftJoystickPort);
+  private Joystick rightStick = new Joystick(rightJoystickPort);
 
-  public double returnLeftStickValue(){
+  public double returnLeftStickValue() {
     return leftStick.getY();
   }
 
-  public double returnRightStickValue(){
+  public double returnRightStickValue() {
     return rightStick.getY();
+  }
+
+  public boolean getDriveDisabled() {
+    return driveDisableSwitch.get();
   }
 
   // Button button = new JoystickButton(leftStick, buttonNumber);
