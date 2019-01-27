@@ -7,10 +7,12 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
+import frc.robot.commands.JoystickDrive;
 
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
@@ -33,8 +35,8 @@ public class DriveTrain extends Subsystem {
     rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
     rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
 
-    reverseOutputRight = true;
-    reverseOutputLeft = false;
+    reverseOutputRight = false;
+    reverseOutputLeft = true;
 
     rightMotorMaster.setInverted(reverseOutputRight);
     rightMotorFollower.setInverted(reverseOutputRight);
@@ -60,6 +62,6 @@ public class DriveTrain extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+     setDefaultCommand(new JoystickDrive());
   }
 }
