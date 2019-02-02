@@ -20,9 +20,12 @@ public class OI {
   private static final int rightJoystickPort = 1;
   private static final int oIControlOnePort = 3;
   private static final int driveDisableSwitchButtonNum = 9;
+  private static final int driveOpenLoopSwitchButtonNum = 10;
+
   private Joystick oIControlOne = new Joystick(oIControlOnePort);
   private Button driveDisableSwitch = new JoystickButton(oIControlOne, driveDisableSwitchButtonNum);
-
+  private Button driveOpenLoopSwitch = new JoystickButton(oIControlOne, driveOpenLoopSwitchButtonNum);
+  
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
@@ -41,6 +44,10 @@ public class OI {
 
   public boolean getDriveDisabled() {
     return driveDisableSwitch.get();
+  }
+
+  public boolean getDriveOpenLoop() {
+    return driveOpenLoopSwitch.get();
   }
 
   // Button button = new JoystickButton(leftStick, buttonNumber);

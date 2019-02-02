@@ -53,7 +53,7 @@ public class DriveTrain extends Subsystem {
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
       stop();
-    } else {
+    } else if (Robot.oi.getDriveOpenLoop()) {
       leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
       rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
     }
