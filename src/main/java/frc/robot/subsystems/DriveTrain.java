@@ -8,12 +8,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.JoystickDrive;
-import frc.robot.Robot;
 
 public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
@@ -21,6 +22,10 @@ public class DriveTrain extends Subsystem {
 
   private boolean reverseOutputLeft;
   private boolean reverseOutputRight;
+
+  private boolean leftSetSensorReversed;
+  private boolean rightSetSensorReversed;
+
 
   private TalonSRX leftMotorMaster;
   private TalonSRX leftMotorFollower;
@@ -39,16 +44,49 @@ public class DriveTrain extends Subsystem {
     reverseOutputRight = false;
     reverseOutputLeft = true;
 
-    rightMotorMaster.setInverted(reverseOutputRight);
-    rightMotorFollower.setInverted(reverseOutputRight);
+    leftSetSensorReversed = false;
+    rightSetSensorReversed = false;
 
     leftMotorMaster.setInverted(reverseOutputLeft);
     leftMotorFollower.setInverted(reverseOutputLeft);
 
+    rightMotorMaster.setInverted(reverseOutputRight);
+    rightMotorFollower.setInverted(reverseOutputRight);
+
     leftMotorFollower.set(ControlMode.Follower, RobotMap.leftMotorMasterID);
     rightMotorFollower.set(ControlMode.Follower, RobotMap.rightMotorMasterID);
 
+    leftMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    rightMotorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+    leftMotorMaster.setSensorPhase(leftSetSensorReversed);
+    rightMotorMaster.setSensorPhase(rightSetSensorReversed);
+
+    leftMotorMaster.configNominalOutputForward(0);
+    leftMotorMaster.configNominalOutputReverse(0);
+    rightMotorMaster.configNominalOutputForward(0);
+    rightMotorMaster.configNominalOutputReverse(0);
+
+    leftMotorMaster.configPeakOutputForward(1);
+    leftMotorMaster.configPeakOutputReverse(-1);
+    rightMotorMaster.configPeakOutputForward(1);
+    rightMotorMaster.configPeakOutputReverse(-1);
   }
+
+  public void setPID(int slotIdx, double PValue, double IValue, double DValue, double FValue, int izone) {
+    leftMotorMaster.config_kP(slotIdx, PValue);
+    leftMotorMaster.config_kI(slotIdx, IValue);
+    leftMotorMaster.config_kD(slotIdx, DValue);
+    leftMotorMaster.config_kF(slotIdx, FValue);
+    leftMotorMaster.config_IntegralZone(slotIdx, izone);
+
+    rightMotorMaster.config_kP(slotIdx, PValue);
+    rightMotorMaster.config_kI(slotIdx, IValue);
+    rightMotorMaster.config_kD(slotIdx, DValue);
+    rightMotorMaster.config_kF(slotIdx, FValue);
+    rightMotorMaster.config_IntegralZone(slotIdx, izone);
+  }
+
 
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
