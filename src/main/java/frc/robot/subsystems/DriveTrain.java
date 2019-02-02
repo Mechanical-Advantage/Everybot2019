@@ -26,11 +26,18 @@ public class DriveTrain extends Subsystem {
   private boolean leftSetSensorReversed;
   private boolean rightSetSensorReversed;
 
-
   private TalonSRX leftMotorMaster;
   private TalonSRX leftMotorFollower;
   private TalonSRX rightMotorFollower;
   private TalonSRX rightMotorMaster;
+
+  private static final int ticksPerRotation = 1440;
+
+  private static final double wheelDiameter = 6; // inches
+
+  private static final double kP = -1;
+  private static final double kI = 0;
+  private static final double kD = 0;
 
   private static final double stopSpeed = 0.0;
 
@@ -87,7 +94,16 @@ public class DriveTrain extends Subsystem {
     rightMotorMaster.config_IntegralZone(slotIdx, izone);
   }
 
+  public double getVelocityLeft() {
+    return (leftMotorMaster.getSelectedSensorVelocity() * wheelDiameter * Math.PI * 10) / (ticksPerRotation);
+  }
 
+  public double getVelocityRight() {
+    return (rightMotorMaster.getSelectedSensorVelocity() * wheelDiameter * Math.PI * 10) / (ticksPerRotation);
+  }
+  public void driveInchesPerSecond(){
+    
+  }
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
       stop();
