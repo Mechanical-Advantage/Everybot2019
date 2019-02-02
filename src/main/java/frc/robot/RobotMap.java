@@ -21,6 +21,8 @@ public class RobotMap {
 
   public static int hookMotorID = 4;
   public static int ballHandlerMotorID = 5;
+
+  public static int maxVelocity = 1000;
   
   // For example to map the left and right motors, you could define the
   // following variables to use with your drivetrain subsystem.

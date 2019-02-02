@@ -101,15 +101,29 @@ public class DriveTrain extends Subsystem {
   public double getVelocityRight() {
     return (rightMotorMaster.getSelectedSensorVelocity() * wheelDiameter * Math.PI * 10) / (ticksPerRotation);
   }
-  public void driveInchesPerSecond(){
-    
+
+  public void driveInchesPerSecond(double leftIPS, double rightIPS){
+    (leftIPS * ticksPerRotation) / (wheelDiameter * Math.PI * 10);    //still need to fix units.
+
   }
+
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
       stop();
-    } else if (Robot.oi.getDriveOpenLoop()) {
-      leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
-      rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
+    } 
+    else {
+      if (Robot.oi.getDriveOpenLoop()) {
+        leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
+        rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
+      }
+      else {
+        // driveclosedloop code
+        leftPercent *= RobotMap.maxVelocity;
+        rightPercent *= RobotMap.maxVelocity;
+
+        leftMotorMaster.set(ControlMode.Velocity, leftPercent);
+        rightMotorMaster.set(ControlMode.Velocity, rightPercent);
+      }
     }
   }
 
