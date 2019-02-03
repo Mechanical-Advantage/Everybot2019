@@ -31,13 +31,18 @@ public class DriveTrain extends Subsystem {
   private TalonSRX rightMotorFollower;
   private TalonSRX rightMotorMaster;
 
+  private static final int maxVelocity = 180; // guess in inches per second
+
   private static final int ticksPerRotation = 1440;
+
+  private static final int kIzone = 0;
 
   private static final double wheelDiameter = 6; // inches
 
   private static final double kP = -1;
   private static final double kI = 0;
   private static final double kD = 0;
+  private static final double kF = 1;
 
   private static final double stopSpeed = 0.0;
 
@@ -78,6 +83,8 @@ public class DriveTrain extends Subsystem {
     leftMotorMaster.configPeakOutputReverse(-1);
     rightMotorMaster.configPeakOutputForward(1);
     rightMotorMaster.configPeakOutputReverse(-1);
+
+    setPID(0, kP, kI, kD, kF, kIzone);
   }
 
   public void setPID(int slotIdx, double PValue, double IValue, double DValue, double FValue, int izone) {
@@ -102,21 +109,19 @@ public class DriveTrain extends Subsystem {
     return (rightMotorMaster.getSelectedSensorVelocity() * wheelDiameter * Math.PI * 10) / (ticksPerRotation);
   }
 
-  public void driveInchesPerSecond(double leftIPS, double rightIPS){
-    (leftIPS * ticksPerRotation) / (wheelDiameter * Math.PI * 10);    //still need to fix units.
-
+  public void driveInchesPerSecond(double leftIPS, double rightIPS) {
+    drive((((leftIPS * ticksPerRotation) / (wheelDiameter * Math.PI * 10)) / maxVelocity), // still need to fix units.
+        (((rightIPS * ticksPerRotation) / (wheelDiameter * Math.PI * 10)) / maxVelocity));
   }
 
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
       stop();
-    } 
-    else {
+    } else {
       if (Robot.oi.getDriveOpenLoop()) {
         leftMotorMaster.set(ControlMode.PercentOutput, leftPercent);
         rightMotorMaster.set(ControlMode.PercentOutput, rightPercent);
-      }
-      else {
+      } else {
         // driveclosedloop code
         leftPercent *= RobotMap.maxVelocity;
         rightPercent *= RobotMap.maxVelocity;
