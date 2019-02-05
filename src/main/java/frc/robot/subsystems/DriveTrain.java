@@ -114,6 +114,24 @@ public class DriveTrain extends Subsystem {
         (((rightIPS * ticksPerRotation) / (wheelDiameter * Math.PI * 10)) / maxVelocity));
   }
 
+  // add accessor methods for pid
+
+  public double getP() {
+    return kP;
+  }
+
+  public double getI () {
+    return kI;
+  }
+
+  public double getD () {
+    return kD;
+  }
+  
+  public double getF () {
+    return kF;
+  }
+
   public void drive(double leftPercent, double rightPercent) {
     if (Robot.oi.getDriveDisabled()) {
       stop();
