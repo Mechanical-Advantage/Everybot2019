@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.VelocityPIDTuner;
 import frc.robot.subsystems.BallHandler;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PanelHandler;
 
 /**
@@ -34,7 +35,9 @@ public class Robot extends TimedRobot {
   public static OI oi;
 
   Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  // SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> tuningModeChooser = new SendableChooser<>();
+
 
   /**
    * This function is run when the robot is first started up and should be
@@ -43,9 +46,15 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // // chooser.addOption("My Auto", new MyAutoCommand());
+    // SmartDashboard.putData("Auto mode", m_chooser);
+
+    if (RobotMap.tuningMode) {
+      tuningModeChooser.setDefaultOption("Tuning Mode", null);
+      tuningModeChooser.addOption("Velocity PID Tuner", new VelocityPIDTuner());
+      SmartDashboard.putData("Tunable Auto Mode", tuningModeChooser);
+    }
   }
 
   /**
@@ -87,8 +96,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
-
+    // m_autonomousCommand = m_chooser.getSelected();
+    m_autonomousCommand = new VelocityPIDTuner();
+    
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

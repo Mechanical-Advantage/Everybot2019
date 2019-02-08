@@ -53,8 +53,8 @@ public class DriveTrain extends Subsystem {
     rightMotorMaster = new TalonSRX(RobotMap.rightMotorMasterID);
     rightMotorFollower = new TalonSRX(RobotMap.rightMotorFollowerID);
 
-    reverseOutputRight = false;
-    reverseOutputLeft = true;
+    reverseOutputRight = true;
+    reverseOutputLeft = false;
 
     leftSetSensorReversed = false;
     rightSetSensorReversed = false;

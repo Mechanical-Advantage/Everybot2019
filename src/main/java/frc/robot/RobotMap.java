@@ -14,10 +14,10 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  public static int leftMotorMasterID = 0;
-  public static int leftMotorFollowerID = 1;
-  public static int rightMotorMasterID = 3;
-  public static int rightMotorFollowerID = 2;
+  public static int rightMotorMasterID = 0;
+  public static int rightMotorFollowerID = 1;
+  public static int leftMotorMasterID = 14;
+  public static int leftMotorFollowerID = 15;
 
   public static int hookMotorID = 4;
   public static int ballHandlerMotorID = 5;

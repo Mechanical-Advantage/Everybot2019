@@ -26,8 +26,8 @@ public class JoystickDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double leftValue = Robot.oi.returnLeftStickValue();
-    double rightValue = Robot.oi.returnRightStickValue();
+    double leftValue = -1* Robot.oi.returnLeftStickValue();
+    double rightValue = -1* Robot.oi.returnRightStickValue();
     Robot.driveTrain_subsystem.drive(leftValue, rightValue);
   }
 
