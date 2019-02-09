@@ -34,7 +34,7 @@ public class VelocityPIDTuner extends Command {
     f.setDefault(Robot.driveTrain_subsystem.getF());
     setPoint.setDefault(0);
     SmartDashboard.putBoolean("PIDTuner/enabled", false);
-    Robot.driveTrain_subsystem.enableBrakeMode();
+    Robot.driveTrain_subsystem.enableBrakeMode(true);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -44,7 +44,8 @@ public class VelocityPIDTuner extends Command {
     Robot.driveTrain_subsystem.setPID(0, p.get(), i.get(), d.get(), f.get(), 0);
     if (SmartDashboard.getBoolean("PIDTuner/enabled", false) == true) {
       Robot.driveTrain_subsystem.driveInchesPerSecond(setPoint.get(), setPoint.get());
-      currentVelocity = ((Robot.driveTrain_subsystem.getVelocityLeft() + Robot.driveTrain_subsystem.getVelocityRight())/2);
+      currentVelocity = ((Robot.driveTrain_subsystem.getVelocityLeft() + Robot.driveTrain_subsystem.getVelocityRight())
+          / 2);
       SmartDashboard.putNumber("PIDTuner/currentVelocity", currentVelocity);
     } else {
       Robot.driveTrain_subsystem.stop();

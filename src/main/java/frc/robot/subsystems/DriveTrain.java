@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -120,15 +121,15 @@ public class DriveTrain extends Subsystem {
     return kP;
   }
 
-  public double getI () {
+  public double getI() {
     return kI;
   }
 
-  public double getD () {
+  public double getD() {
     return kD;
   }
-  
-  public double getF () {
+
+  public double getF() {
     return kF;
   }
 
@@ -155,20 +156,18 @@ public class DriveTrain extends Subsystem {
     rightMotorMaster.set(ControlMode.PercentOutput, stopSpeed);
   }
 
-
   public void enableBrakeMode(boolean enable) {
-		NeutralMode mode;
-		if (enable) {
-			mode = NeutralMode.Brake;
-		} else {
-			mode = NeutralMode.Coast;
-		}
-		rightMotorMaster.setNeutralMode(mode);
-		leftMotorMaster.setNeutralMode(mode);
-		rightMotorFollower.setNeutralMode(mode);
-		leftMotorFollower.setNeutralMode(mode);
+    NeutralMode mode;
+    if (enable) {
+      mode = NeutralMode.Brake;
+    } else {
+      mode = NeutralMode.Coast;
+    }
+    rightMotorMaster.setNeutralMode(mode);
+    leftMotorMaster.setNeutralMode(mode);
+    rightMotorFollower.setNeutralMode(mode);
+    leftMotorFollower.setNeutralMode(mode);
   }
-  
 
   @Override
   public void initDefaultCommand() {
