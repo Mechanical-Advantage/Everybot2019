@@ -34,6 +34,7 @@ public class VelocityPIDTuner extends Command {
     f.setDefault(Robot.driveTrain_subsystem.getF());
     setPoint.setDefault(0);
     SmartDashboard.putBoolean("PIDTuner/enabled", false);
+    Robot.driveTrain_subsystem.enableBrakeMode();
   }
 
   // Called repeatedly when this Command is scheduled to run

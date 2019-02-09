@@ -56,8 +56,8 @@ public class DriveTrain extends Subsystem {
     reverseOutputRight = true;
     reverseOutputLeft = false;
 
-    leftSetSensorReversed = false;
-    rightSetSensorReversed = false;
+    leftSetSensorReversed = true;
+    rightSetSensorReversed = true;
 
     leftMotorMaster.setInverted(reverseOutputLeft);
     leftMotorFollower.setInverted(reverseOutputLeft);
@@ -154,6 +154,21 @@ public class DriveTrain extends Subsystem {
     leftMotorMaster.set(ControlMode.PercentOutput, stopSpeed);
     rightMotorMaster.set(ControlMode.PercentOutput, stopSpeed);
   }
+
+
+  public void enableBrakeMode(boolean enable) {
+		NeutralMode mode;
+		if (enable) {
+			mode = NeutralMode.Brake;
+		} else {
+			mode = NeutralMode.Coast;
+		}
+		rightMotorMaster.setNeutralMode(mode);
+		leftMotorMaster.setNeutralMode(mode);
+		rightMotorFollower.setNeutralMode(mode);
+		leftMotorFollower.setNeutralMode(mode);
+  }
+  
 
   @Override
   public void initDefaultCommand() {
